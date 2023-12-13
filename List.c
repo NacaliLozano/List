@@ -66,7 +66,7 @@ void append(List_t self, int element) {
 
 int access_element(List_t self, unsigned int i) {
 	unsigned int j;
-	Node_t* current;
+	Node_t *current;
 
 	current = self->inner_list;
 	for (j = 0; j < i; j++) {
