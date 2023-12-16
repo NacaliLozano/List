@@ -51,16 +51,26 @@ void destroy_List(List_t *self) {
 	return;
 }
 
-void append(List_t *self, int element) {
+int append(List_t *self, int element) {
 	Node_t *current;
 
+	if (self == NULL) {
+		return -1;
+	}
+
 	current = self->inner_list;
+	if (current == NULL) {
+		self->inner_list = create_Node(element);
+		self->n_elements++;
+		return 0;
+	}
 	while (current->next_node != NULL) {
 		current = current->next_node;
 	}
 
 	current->next_node = create_Node(element);
 	self->n_elements++;
+	return 0;
 }
 
 int access_element(List_t *self, unsigned int i, int *element) {
@@ -139,13 +149,20 @@ int sort_List(List_t *self) {
 	unsigned int i, j;
 	Node_t *current_i, *current_j;
 	
+	if (self == NULL) {
+		return -3;
+	}
+	printf("Check 1\n");
 	if (self->n_elements < 2) {
 		return -1;
 	}
 	current_i = self->inner_list;
+	printf("Check 2\n");
 	for (i = 0; i < self->n_elements; i++) {
 		current_j = current_i->next_node;
+		printf("Check i%d\n", i);
 		for (j = i + 1; j < self->n_elements; j++) {
+			printf("Check j%d\n", j);
 			if (current_i == NULL || current_j == NULL) {
 				return -2;
 			}
@@ -157,6 +174,39 @@ int sort_List(List_t *self) {
 			current_j = current_j->next_node;
 		}
 		current_i = current_i->next_node;
+	}
+	return 0;
+}
+
+int print_List(List_t *self) {
+	unsigned int j;
+	Node_t *current;
+
+	if (self == NULL) {
+		return -1;
+	}
+	else {
+		if (self->inner_list == NULL) {
+			printf("[]\n");
+			return 0;
+		}
+		else {
+			if (self->n_elements == 1) {
+				printf("[%d]\n", self->inner_list->element);
+			}
+			else {
+				printf("[");
+				current = self->inner_list;
+				for (j = 0; j < self->n_elements - 1; j++) {
+					if (current == NULL) {
+						return -2;
+					}
+					printf("%d, ", current->element);
+					current = current->next_node;
+				}
+				printf("%d]\n", current->element);
+			}
+		}
 	}
 	return 0;
 }
