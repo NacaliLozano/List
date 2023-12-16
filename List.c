@@ -1,15 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include "List.h"
 
-typedef struct Node_t Node_t;
-struct {
-	int element;
-	Node_t *next_node;
-} Node_t;
 
-typedef struct {
-	unsigned int n_elements;
-	Node_t *inner_list;
-} List_t;
+
 
 Node_t* create_Node(int element) {
 	Node_t *self;
@@ -28,9 +22,14 @@ void destroy_Node(Node_t* self) {
 	free(self);
 }
 
-List_t create_List() {
+List_t* create_List() {
 
-	List_t self;
+	List_t *self;
+
+	self = (List_t*)malloc(sizeof(List_t));
+	if (self == NULL) {
+		return NULL;
+	}
 
 	self->n_elements = 0;
 	self->inner_list = NULL;
@@ -38,21 +37,21 @@ List_t create_List() {
 	return self;
 }
 
-void destroy_List(List_t self) {
+void destroy_List(List_t *self) {
 	unsigned int i;
 	Node_t *temp, *current;
 
 	current = self->inner_list;
 	for (i = 0; i < self->n_elements; i++) {
 		temp =  current->next_node;
-		free(current);
+		destroy_Node(current);
 		current = temp;
 	}
+	free(self);
 	return;
 }
 
-void append(List_t self, int element) {
-	unsigned int i;
+void append(List_t *self, int element) {
 	Node_t *current;
 
 	current = self->inner_list;
@@ -61,25 +60,25 @@ void append(List_t self, int element) {
 	}
 
 	current->next_node = create_Node(element);
-	self->n_elements++
+	self->n_elements++;
 }
 
-int access_element(List_t self, unsigned int i) {
+int access_element(List_t *self, unsigned int i, int *element) {
 	unsigned int j;
 	Node_t *current;
 
 	current = self->inner_list;
 	for (j = 0; j < i; j++) {
 		if (current == NULL) {
-			printf("Wrong input\n");
 			return -1;
 		}
 		current = current->next_node;
 	}
-	return current->element;
+	*element = current->element;
+	return 0;
 }
 
-int delete_element(List_t self, unsigned int i) {
+int delete_element(List_t *self, unsigned int i) {
 	unsigned int j;
 	Node_t *current, *previous;
 
@@ -87,7 +86,6 @@ int delete_element(List_t self, unsigned int i) {
 	previous = NULL;
 	for (j = 0; j < i; j++) {
 		if (current == NULL) {
-			printf("Wrong input\n");
 			return -1;
 		}
 		previous = current;
@@ -99,23 +97,21 @@ int delete_element(List_t self, unsigned int i) {
 	return 0;
 }
 
-unsigned int size(List_t self) {
+unsigned int size(List_t *self) {
 	return self->n_elements;
 }
 
-int swap_nodes(List_t self, unsigned int i, unsigned int j) {
+int swap_nodes(List_t *self, unsigned int i, unsigned int j) {
 	Node_t *current_i, *current_j, *previous_i, *previous_j, *aux;
 	unsigned int index_i, index_j;
 	
-	if ( i == j || i > self->n-elements || j > self->n-elements) {
-		printf("Wrong input\n");
+	if (i == j || i > self->n_elements || j > self->n_elements) {
 		return -1;
 	}
 	
 	current_i = self->inner_list;
 	for (index_i = 0; index_i < i; index_i++) {
 		if (current_i == NULL) {
-			printf("Wrong input\n");
 			return -1;
 		}
 		previous_i = current_i;
@@ -125,7 +121,6 @@ int swap_nodes(List_t self, unsigned int i, unsigned int j) {
 	current_j = self->inner_list;
 	for (index_j = 0; index_j < j; index_j++) {
 		if (current_j == NULL) {
-			printf("Wrong input\n");
 			return -1;
 		}
 		previous_j = current_j;
@@ -140,11 +135,11 @@ int swap_nodes(List_t self, unsigned int i, unsigned int j) {
 	return 0;
 }
 
-int sort_List(List_t self) {
+int sort_List(List_t *self) {
 	unsigned int i, j;
+	Node_t *current_i, *current_j;
 	
 	if (self->n_elements < 2) {
-		printf("Not enough elements to sort\n");
 		return -1;
 	}
 	current_i = self->inner_list;
@@ -152,11 +147,10 @@ int sort_List(List_t self) {
 		current_j = current_i->next_node;
 		for (j = i + 1; j < self->n_elements; j++) {
 			if (current_i == NULL || current_j == NULL) {
-				printf("Wrong input\n");
 				return -2;
 			}
 			else {
-				if (current_j->element < current_j->element) {
+				if (current_j->element < current_i->element) {
 					swap_nodes(self, i, j);
 				}
 			}
@@ -164,4 +158,5 @@ int sort_List(List_t self) {
 		}
 		current_i = current_i->next_node;
 	}
+	return 0;
 }
