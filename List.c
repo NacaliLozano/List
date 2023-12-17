@@ -119,30 +119,67 @@ int swap_nodes(List_t *self, unsigned int i, unsigned int j) {
 		return -1;
 	}
 	
-	current_i = self->inner_list;
-	for (index_i = 0; index_i < i; index_i++) {
-		if (current_i == NULL) {
-			return -1;
+	if (i == 0) {
+		current_j = self->inner_list;
+		for (index_j = 0; index_j < j; index_j++) {
+			if (current_j == NULL) {
+				return -1;
+			}
+			previous_j = current_j;
+			current_j = current_j->next_node;
 		}
-		previous_i = current_i;
-		current_i = current_i->next_node;
+		aux = self->inner_list;
+
+		self->inner_list = current_j;
+		aux->next_node = current_j->next_node;
+		current_j->next_node = aux->next_node;
+		previous_j->next_node = aux;
+		return 0;
 	}
-	
-	current_j = self->inner_list;
-	for (index_j = 0; index_j < j; index_j++) {
-		if (current_j == NULL) {
-			return -1;
+	else {
+		if (j == 0) {
+			current_i = self->inner_list;
+			for (index_i = 0; index_i < i; index_i++) {
+				if (current_i == NULL) {
+					return -1;
+				}
+				previous_i = current_i;
+				current_i = current_i->next_node;
+			}
+			aux = self->inner_list;
+			previous_i->next_node = aux;
+			self->inner_list = current_i;
+			aux->next_node = current_i->next_node;
+			current_i->next_node = aux->next_node;
+			return 0;
 		}
-		previous_j = current_j;
-		current_j = current_j->next_node;
+		else {
+			current_i = self->inner_list;
+			for (index_i = 0; index_i < i; index_i++) {
+				if (current_i == NULL) {
+					return -1;
+				}
+				previous_i = current_i;
+				current_i = current_i->next_node;
+			}
+
+			current_j = self->inner_list;
+			for (index_j = 0; index_j < j; index_j++) {
+				if (current_j == NULL) {
+					return -1;
+				}
+				previous_j = current_j;
+				current_j = current_j->next_node;
+			}
+
+			previous_i->next_node = current_j;
+			previous_j->next_node = current_i;
+			aux = current_j->next_node;
+			current_j->next_node = current_i->next_node;
+			current_i->next_node = aux;
+			return 0;
+		}
 	}
-	
-	previous_i->next_node = current_j;
-	previous_j->next_node = current_i;
-	aux = current_j->next_node;
-	current_j->next_node = current_i->next_node;
-	current_i->next_node = aux;
-	return 0;
 }
 
 int sort_List(List_t *self) {
@@ -183,6 +220,7 @@ int print_List(List_t *self) {
 	Node_t *current;
 
 	if (self == NULL) {
+		printf("self == NULL");
 		return -1;
 	}
 	else {
@@ -199,6 +237,7 @@ int print_List(List_t *self) {
 				current = self->inner_list;
 				for (j = 0; j < self->n_elements - 1; j++) {
 					if (current == NULL) {
+						printf("\nElement number %d is NULL\n", j);
 						return -2;
 					}
 					printf("%d, ", current->element);
