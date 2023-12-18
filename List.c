@@ -115,43 +115,43 @@ int swap_nodes(List_t *self, unsigned int i, unsigned int j) {
 	Node_t *current_i, *current_j, *previous_i, *previous_j, *aux;
 	unsigned int index_i, index_j;
 	
-	if (i == j || i > self->n_elements || j > self->n_elements) {
-		return -1;
+	if (self == NULL) {
+		return -2;
+	}
+
+	if (self->inner_list == NULL) {
+		return -3;
+	}
+
+	if (i == j || i > self->n_elements || j > self->n_elements || self->n_elements < 2) {
+		return -4;
 	}
 	
-	if (i == 0) {
-		current_j = self->inner_list;
-		for (index_j = 0; index_j < j; index_j++) {
-			if (current_j == NULL) {
-				return -1;
-			}
-			previous_j = current_j;
-			current_j = current_j->next_node;
-		}
-		aux = self->inner_list;
+	if (i == 0 && j == 1) {
+		current_i = self->inner_list;
+		current_j = self->inner_list->next_node;
 
 		self->inner_list = current_j;
-		aux->next_node = current_j->next_node;
-		current_j->next_node = aux->next_node;
-		previous_j->next_node = aux;
+		self->inner_list->next_node = current_i;
+		self->inner_list->next_node->next_node = current_j->next_node;
 		return 0;
 	}
 	else {
-		if (j == 0) {
+		if (i == 0 && j != 1) {
 			current_i = self->inner_list;
-			for (index_i = 0; index_i < i; index_i++) {
-				if (current_i == NULL) {
+
+			current_j = self->inner_list;
+			for (index_j = 0; index_j < j; index_j++) {
+				if (current_j == NULL) {
 					return -1;
 				}
-				previous_i = current_i;
-				current_i = current_i->next_node;
+				previous_j = current_j;
+				current_j = current_j->next_node;
 			}
-			aux = self->inner_list;
-			previous_i->next_node = aux;
-			self->inner_list = current_i;
-			aux->next_node = current_i->next_node;
-			current_i->next_node = aux->next_node;
-			return 0;
+			self->inner_list = current_j;
+			self->inner_list->next_node = current_i->next_node;
+			previous_j->next_node = current_i;
+			previous_j->next_node->next_node = current_i->next_node;
 		}
 		else {
 			current_i = self->inner_list;
@@ -175,8 +175,8 @@ int swap_nodes(List_t *self, unsigned int i, unsigned int j) {
 			previous_i->next_node = current_j;
 			previous_j->next_node = current_i;
 			aux = current_j->next_node;
-			current_j->next_node = current_i->next_node;
-			current_i->next_node = aux;
+			previous_j->next_node->next_node = current_i->next_node;
+			previous_i->next_node->next_node = aux;
 			return 0;
 		}
 	}

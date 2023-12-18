@@ -18,11 +18,11 @@ int main() {
 	print_List(foo);
 	append(foo, 5);
 	append(foo, 0);
-//	append(foo, -40);
-//	append(foo, 276);
-//	append(foo, 18);
-//	append(foo, -56);
-//	append(foo, 5);
+	append(foo, -40);
+	append(foo, 276);
+	append(foo, 18);
+	append(foo, -56);
+	append(foo, 5);
 	printf("Current list: ");
 	print_List(foo);
 	printf("%d\n", foo->n_elements);
