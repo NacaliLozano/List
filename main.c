@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include "List.h"
 
-int main() {
+int test_sort_List() {
 	List_t *foo = NULL;
 
 	foo = create_List();
@@ -29,6 +29,12 @@ int main() {
 	printf("sort_List error: %d\n", sort_List(foo));
 	printf("Current list: ");
 	print_List(foo);
+
+}
+
+int main() {
+
+	test_sort_List();
 	return 0;
 
 }
