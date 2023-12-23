@@ -13,10 +13,31 @@
 int test_sort_List() {
 	List_t *foo = NULL;
 
+	if (sort_List(foo) == -3) {
+		printf("NULL List handled correctly\n");
+	}
+	else {
+		printf("NULL List not handled correctly\n");
+	}
 	foo = create_List();
 	printf("Current list: ");
 	print_List(foo);
+	if (sort_List(foo) == -1) {
+			printf("Empty List handled correctly\n");
+	}
+	else {
+			printf("Empty List not handled correctly\n");
+	}
+
 	append(foo, 5);
+	printf("Current list: ");
+	print_List(foo);
+	if (sort_List(foo) == -1) {
+			printf("One element List handled correctly\n");
+	}
+	else {
+			printf("One element List not handled correctly\n");
+	}
 	append(foo, 0);
 	append(foo, -40);
 	append(foo, 276);
@@ -25,10 +46,14 @@ int test_sort_List() {
 	append(foo, 5);
 	printf("Current list: ");
 	print_List(foo);
-	printf("%d\n", foo->n_elements);
+	printf("Number of elements: %d\n", foo->n_elements);
 	printf("sort_List error: %d\n", sort_List(foo));
 	printf("Current list: ");
 	print_List(foo);
+	destroy_List(foo);
+	return 0;
+
+
 
 }
 
