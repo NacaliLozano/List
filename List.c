@@ -70,7 +70,7 @@ int access_element(List_t *self, unsigned int i) {
 	unsigned int j;
 	Node_t *current;
 
-	assert(self != NULL && self->n_elements && i < self->n_elements);
+	assert(self != NULL && i < self->n_elements);
 
 	current = self->inner_list;
 	for (j = 0; j < i; j++) {
@@ -84,7 +84,7 @@ void delete_element(List_t *self, unsigned int i) {
 	unsigned int j;
 	Node_t *current, *previous;
 
-	assert(self != NULL && self->n_elements != 0 && i < self->n_elements);
+	assert(self != NULL && i < self->n_elements);
 
 	current = self->inner_list;
 	if (i == 0) {
@@ -112,7 +112,7 @@ void swap_nodes(List_t *self, unsigned int i, unsigned int j) {
 	Node_t *current_i, *current_j, *previous_i, *previous_j, *aux;
 	unsigned int index_i, index_j;
 	
-    assert(self != NULL && self->n_elements > 0 && i < self->n_elements && j < self->n_elements);
+    assert(self != NULL && i < self->n_elements && j < self->n_elements);
 
     current_i = self->inner_list;
     previous_i = NULL;
@@ -157,7 +157,8 @@ void sort_List(List_t *self) {
 
     assert(self != NULL);
 
-    for (i = 0; i < self->n_elements - 1; i++) {
+    //Cast to avoid an empty list to enter the loop
+    for (i = 0; (int)i < (int)self->n_elements - 1; i++) {
     	current = self->inner_list;
     	next_node = current->next_node;
 
