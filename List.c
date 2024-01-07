@@ -49,10 +49,12 @@ void destroy_List(List_t *self) {
 	free(self);
 }
 
-void append(List_t *self, int element) {
+int append(List_t *self, int element) {
 	Node_t *current;
 
-	assert(self != NULL);
+	if (self == NULL) {
+		return -1;
+	}
 	current = self->inner_list;
 	if (current == NULL) {
 		self->inner_list = create_Node(element);
@@ -64,27 +66,33 @@ void append(List_t *self, int element) {
 		current->next_node = create_Node(element);
 	}
 	self->n_elements++;
+	return 0;
 }
 
-int access_element(List_t *self, unsigned int i) {
+int access_element(List_t *self, unsigned int i, int *element) {
 	unsigned int j;
 	Node_t *current;
 
-	assert(self != NULL && i < self->n_elements);
+	if (self == NULL || i >= self->n_elements) {
+		return -1;
+	}
 
 	current = self->inner_list;
 	for (j = 0; j < i; j++) {
 		assert(current != NULL);
 		current = current->next_node;
 	}
-	return current->element;
+	*element = current->element;
+	return 0;
 }
 
-void delete_element(List_t *self, unsigned int i) {
+int delete_element(List_t *self, unsigned int i) {
 	unsigned int j;
 	Node_t *current, *previous;
 
-	assert(self != NULL && i < self->n_elements);
+	if (self == NULL || i >= self->n_elements) {
+		return -1;
+	}
 
 	current = self->inner_list;
 	if (i == 0) {
@@ -101,23 +109,31 @@ void delete_element(List_t *self, unsigned int i) {
 	}
 	destroy_Node(current);
 	self->n_elements--;
+	return 0;
 }
 
-unsigned int size(List_t *self) {
-	assert(self != NULL);
-	return self->n_elements;
+int size(List_t *self, unsigned int *size) {
+	if (self == NULL) {
+		return -1;
+	}
+	*size = self->n_elements;
+	return 0;
 }
 
-void swap_nodes(List_t *self, unsigned int i, unsigned int j) {
+int swap_nodes(List_t *self, unsigned int i, unsigned int j) {
 	Node_t *current_i, *current_j, *previous_i, *previous_j, *aux;
 	unsigned int index_i, index_j;
 	
-    assert(self != NULL && i < self->n_elements && j < self->n_elements);
+    if (self == NULL || i >= self->n_elements || j >= self->n_elements) {
+    	return -1;
+    }
 
     current_i = self->inner_list;
     previous_i = NULL;
     for (index_i = 0; index_i < i; index_i++) {
-        assert(current_i != NULL);
+        if (current_i == NULL) {
+        	return -1;
+        }
         previous_i = current_i;
         current_i = current_i->next_node;
     }
@@ -125,7 +141,9 @@ void swap_nodes(List_t *self, unsigned int i, unsigned int j) {
     current_j = self->inner_list;
     previous_j = NULL;
     for (index_j = 0; index_j < j; index_j++) {
-        assert(current_j != NULL);
+    	if (current_i == NULL) {
+    		return -1;
+    	}
         previous_j = current_j;
         current_j = current_j->next_node;
     }
@@ -147,15 +165,17 @@ void swap_nodes(List_t *self, unsigned int i, unsigned int j) {
     aux = current_i->next_node;
     current_i->next_node = current_j->next_node;
     current_j->next_node = aux;
-
+    return 0;
 }
 
-void sort_List(List_t *self) {
+int sort_List(List_t *self) {
 	Node_t *current, *next_node;
     int aux;
     unsigned int i, j;
 
-    assert(self != NULL);
+    if (self == NULL) {
+    	return -1;
+    }
 
     //Cast to avoid an empty list to enter the loop
     for (i = 0; (int)i < (int)self->n_elements - 1; i++) {
@@ -163,7 +183,9 @@ void sort_List(List_t *self) {
     	next_node = current->next_node;
 
         for (j = i + 1; j < self->n_elements; j++) {
-            assert(next_node != NULL);
+            if (next_node == NULL) {
+            	return -1;
+            }
 
             if (current->element > next_node->element) {
                 aux = current->element;
@@ -174,13 +196,16 @@ void sort_List(List_t *self) {
             next_node = next_node->next_node;
         }
     }
+    return 0;
 }
 
-void print_List(List_t *self) {
+int print_List(List_t *self) {
 	unsigned int j;
 	Node_t *current;
 
-	assert(self != NULL);
+	if (self == NULL) {
+		return -1;
+	}
 	if (self->inner_list == NULL) {
 		printf("[]\n");
 	}
@@ -192,11 +217,14 @@ void print_List(List_t *self) {
 			printf("[");
 			current = self->inner_list;
 			for (j = 0; j < self->n_elements - 1; j++) {
-				assert(current != NULL);
+				if (current == NULL) {
+					return -1;
+				}
 				printf("%d, ", current->element);
 				current = current->next_node;
 			}
 			printf("%d]\n", current->element);
 		}
 	}
+	return 0;
 }
