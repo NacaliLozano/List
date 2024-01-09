@@ -78,6 +78,11 @@ int main() {
 	} else {
 		printf("delete_element in an empty list behaved incorrectly\n");
 	}
+	if (size(foo, &s) == 0) {
+		printf("size of empty list behaved correctly\n");
+	} else {
+		printf("size of empty list behaved incorrectly\n");
+	}
 	if (swap_nodes(foo, 0, 1) == -1) {
 		printf("swap_nodes in an empty list behaved correctly\n");
 	} else {
@@ -88,16 +93,85 @@ int main() {
 	} else {
 		printf("sorting an empty list behaved incorrectly\n");
 	}
-	sort_and_print(foo);
 
+	if (append(foo, 9999) == 0) {
+		printf("append to empty list behaved correctly\n");
+	} else {
+		printf("append to empty list behaved incorrectly\n");
+	}
+	if (access_element(foo, 0, &element) == 0) {
+		printf("access_element in a one element list behaved correctly\n");
+	} else {
+		printf("access_element in a one element list behaved incorrectly\n");
+	}
+	if (size(foo, &s) == 0) {
+		printf("size in a one element list behaved correctly\n");
+	} else {
+		printf("size in a one element list behaved incorrectly\n");
+	}
+	if (swap_nodes(foo, 0, 0) == 0) {
+		printf("swap_nodes in a one element list behaved correctly\n");
+	} else {
+		printf("swap_nodes in a one element list behaved incorrectly\n");
+	}
+	if (sort_List(foo) == 0) {
+		printf("sorting a one element list behaved correctly\n");
+	} else {
+		printf("sorting a one element list behaved incorrectly\n");
+	}
 
-	append(foo, 9999);
-	sort_and_print(foo);
+	if (append(foo, 0) == 0) {
+		printf("append to a one element list behaved correctly\n");
+	} else {
+		printf("append to a one element behaved incorrectly\n");
+	}
+	if (access_element(foo, 0, &element) == 0) {
+		printf("access_element in a two elements list behaved correctly\n");
+	} else {
+		printf("access_element in a two elements list behaved incorrectly\n");
+	}
+	if (size(foo, &s) == 0) {
+		printf("size in a two elements list behaved correctly\n");
+	} else {
+		printf("size in a two elements list behaved incorrectly\n");
+	}
+	if (swap_nodes(foo, 0, 1) == 0) {
+		printf("swap_nodes in a two elements list behaved correctly\n");
+	} else {
+		printf("swap_nodes in a two elements list behaved incorrectly\n");
+	}
+	if (sort_List(foo) == 0) {
+		printf("sorting a two elements list behaved correctly\n");
+	} else {
+		printf("sorting a two elements list behaved incorrectly\n");
+	}
 
-	append(foo, 0);
-	sort_and_print(foo);
+	if (append(foo, -9999) == 0) {
+		printf("append to a two element list behaved correctly\n");
+	} else {
+		printf("append to a two element behaved incorrectly\n");
+	}
+	if (access_element(foo, 0, &element) == 0) {
+		printf("access_element in a three elements list behaved correctly\n");
+	} else {
+		printf("access_element in a three elements list behaved incorrectly\n");
+	}
+	if (size(foo, &s) == 0) {
+		printf("size in a three elements list behaved correctly\n");
+	} else {
+		printf("size in a three elements list behaved incorrectly\n");
+	}
+	if (swap_nodes(foo, 0, 2) == 0) {
+		printf("swap_nodes in a three elements list behaved correctly\n");
+	} else {
+		printf("swap_nodes in a three elements list behaved incorrectly\n");
+	}
+	if (sort_List(foo) == 0) {
+		printf("sorting a three elements list behaved correctly\n");
+	} else {
+		printf("sorting a three elements list behaved incorrectly\n");
+	}
 
-	append(foo, -9999);
 	sort_and_print(foo);
 
 	for (int i = -500; i < 497; i++) {
