@@ -6,13 +6,14 @@
 
 
 
-Node_t* create_Node(int element) {
+Node_t* create_Node(int element, Node_t *previous) {
 	Node_t *self;
 
 	self = (Node_t*)malloc(sizeof(Node_t));
 	if (self != NULL) {
 		self->element = element;
 		self->next_node = NULL;
+		self->previous_node = previous;
 	}
 	return self;
 }
@@ -29,6 +30,7 @@ List_t* create_List() {
 	if (self != NULL) {
 		self->n_elements = 0;
 		self->first_node = NULL;
+		self->last_node = NULL;
 	}
 	return self;
 }
@@ -50,20 +52,19 @@ void destroy_List(List_t *self) {
 }
 
 int append(List_t *self, int element) {
-	Node_t *current;
+	Node_t *temp;
 
 	if (self == NULL) {
 		return -1;
 	}
-	current = self->first_node;
-	if (current == NULL) {
-		self->first_node = create_Node(element);
+	if (self->first_node == NULL) {
+		self->first_node = create_Node(element, NULL);
+		self->last_node = self->first_node;
 	}
 	else {
-		while (current->next_node != NULL) {
-			current = current->next_node;
-		}
-		current->next_node = create_Node(element);
+		temp = self->last_node;
+		self->last_node = create_Node(element, temp);
+		temp->next_node = self->last_node;
 	}
 	self->n_elements++;
 	return 0;
@@ -98,6 +99,10 @@ int delete_element(List_t *self, unsigned int i) {
 	if (i == 0) {
 		self->first_node = current->next_node;
 	}
+	else if (i == self->n_elements - 1) {
+		current = self->last_node;
+		self->last_node->previous_node->next_node = NULL;
+	}
 	else {
 		previous = NULL;
 		for (j = 0; j < i; j++) {
@@ -106,6 +111,7 @@ int delete_element(List_t *self, unsigned int i) {
 			current = current->next_node;
 		}
 		previous->next_node = current->next_node;
+		current->next_node->previous_node = previous;
 	}
 	destroy_Node(current);
 	self->n_elements--;

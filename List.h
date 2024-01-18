@@ -20,7 +20,7 @@ typedef struct {
 	Node_t *first_node, *last_node;
 } List_t;
 
-Node_t* create_Node(int element);
+Node_t* create_Node(int element, Node_t *previous);
 void destroy_Node(Node_t* self);
 List_t* create_List();
 void destroy_List(List_t *self);
