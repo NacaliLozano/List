@@ -63,7 +63,7 @@ int main() {
 	}
 
 	foo = create_List();
-	if (foo != NULL && foo->inner_list == NULL && foo->n_elements == 0) {
+	if (foo != NULL && foo->first_node == NULL && foo->n_elements == 0) {
 		printf("List creation successful\n");
 	} else {
 		printf("List creation failed\n");

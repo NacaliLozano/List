@@ -10,14 +10,14 @@
 
 struct Node_t {
 	int element;
-	struct Node_t *next_node;
+	struct Node_t *next_node, *previous_node;
 };
 
 typedef struct Node_t Node_t;
 
 typedef struct {
 	unsigned int n_elements;
-	Node_t *inner_list;
+	Node_t *first_node, *last_node;
 } List_t;
 
 Node_t* create_Node(int element);
