@@ -18,7 +18,7 @@ Node_t* create_Node(int element) {
 }
 
 void destroy_Node(Node_t* self) {
-	free(self); //If ptr is NULL, no operation is performed
+	free(self); //If ptr is NULL, no operation is performed.
 }
 
 List_t* create_List() {
