@@ -46,11 +46,6 @@ int main() {
 	} else {
 		printf("size of NULL list behaved incorrectly\n");
 	}
-	if (swap_nodes(foo, 0, 1) == -1) {
-		printf("swap_nodes in a NULL list behaved correctly\n");
-	} else {
-		printf("swap_nodes in a NULL list behaved incorrectly\n");
-	}
 	if (sort_List(foo) == -1) {
 		printf("sort NULL list behaved correctly\n");
 	} else {
@@ -83,11 +78,6 @@ int main() {
 	} else {
 		printf("size of empty list behaved incorrectly\n");
 	}
-	if (swap_nodes(foo, 0, 1) == -1) {
-		printf("swap_nodes in an empty list behaved correctly\n");
-	} else {
-		printf("swap_nodes in an empty list behaved incorrectly\n");
-	}
 	if (sort_List(foo) == 0) {
 		printf("sorting an empty list behaved correctly\n");
 	} else {
@@ -108,11 +98,6 @@ int main() {
 		printf("size in a one element list behaved correctly\n");
 	} else {
 		printf("size in a one element list behaved incorrectly\n");
-	}
-	if (swap_nodes(foo, 0, 0) == 0) {
-		printf("swap_nodes in a one element list behaved correctly\n");
-	} else {
-		printf("swap_nodes in a one element list behaved incorrectly\n");
 	}
 	if (sort_List(foo) == 0) {
 		printf("sorting a one element list behaved correctly\n");
@@ -135,11 +120,7 @@ int main() {
 	} else {
 		printf("size in a two elements list behaved incorrectly\n");
 	}
-	if (swap_nodes(foo, 0, 1) == 0) {
-		printf("swap_nodes in a two elements list behaved correctly\n");
-	} else {
-		printf("swap_nodes in a two elements list behaved incorrectly\n");
-	}
+
 	if (sort_List(foo) == 0) {
 		printf("sorting a two elements list behaved correctly\n");
 	} else {
@@ -160,11 +141,6 @@ int main() {
 		printf("size in a three elements list behaved correctly\n");
 	} else {
 		printf("size in a three elements list behaved incorrectly\n");
-	}
-	if (swap_nodes(foo, 0, 2) == 0) {
-		printf("swap_nodes in a three elements list behaved correctly\n");
-	} else {
-		printf("swap_nodes in a three elements list behaved incorrectly\n");
 	}
 	if (sort_List(foo) == 0) {
 		printf("sorting a three elements list behaved correctly\n");

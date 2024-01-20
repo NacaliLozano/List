@@ -28,7 +28,6 @@ int append(List_t *self, int element);
 int access_element(List_t *self, unsigned int i, int *element);
 int delete_element(List_t *self, unsigned int i);
 int size(List_t *self, unsigned int *size);
-int swap_nodes(List_t *self, unsigned int i, unsigned int j);
 int sort_List(List_t *self);
 int print_List(List_t *self);
 

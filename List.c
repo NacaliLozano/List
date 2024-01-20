@@ -19,7 +19,7 @@ Node_t* create_Node(int element, Node_t *previous) {
 }
 
 void destroy_Node(Node_t* self) {
-	free(self); //If ptr is NULL, no operation is performed
+	free(self); //If ptr is NULL, no operation is performed.
 }
 
 List_t* create_List() {
@@ -124,54 +124,6 @@ int size(List_t *self, unsigned int *size) {
 	}
 	*size = self->n_elements;
 	return 0;
-}
-
-int swap_nodes(List_t *self, unsigned int i, unsigned int j) {
-	Node_t *current_i, *current_j, *previous_i, *previous_j, *aux;
-	unsigned int index_i, index_j;
-	
-    if (self == NULL || i >= self->n_elements || j >= self->n_elements) {
-    	return -1;
-    }
-
-    current_i = self->first_node;
-    previous_i = NULL;
-    for (index_i = 0; index_i < i; index_i++) {
-        if (current_i == NULL) {
-        	return -1;
-        }
-        previous_i = current_i;
-        current_i = current_i->next_node;
-    }
-
-    current_j = self->first_node;
-    previous_j = NULL;
-    for (index_j = 0; index_j < j; index_j++) {
-    	if (current_i == NULL) {
-    		return -1;
-    	}
-        previous_j = current_j;
-        current_j = current_j->next_node;
-    }
-
-    if (previous_i != NULL) {
-        previous_i->next_node = current_j;
-    }
-    else {
-        self->first_node = current_j;
-    }
-
-    if (previous_j != NULL) {
-        previous_j->next_node = current_i;
-    }
-    else {
-        self->first_node = current_i;
-    }
-
-    aux = current_i->next_node;
-    current_i->next_node = current_j->next_node;
-    current_j->next_node = aux;
-    return 0;
 }
 
 int sort_List(List_t *self) {
